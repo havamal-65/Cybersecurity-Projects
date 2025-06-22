@@ -1,0 +1,13 @@
+[wokwi]
+version = 1
+# After compiling with Arduino IDE, the binary will be here:
+firmware = 'firmware/esp32_security_device_combined.ino'
+elf = 'firmware/esp32_security_device_combined.ino.elf'
+
+# Serial port forwarding for monitoring
+rfc2217ServerPort = 4000
+
+# WiFi Gateway configuration (ESP32)
+[[net.forward]]
+from = "localhost:8080"
+to = "target:80" 

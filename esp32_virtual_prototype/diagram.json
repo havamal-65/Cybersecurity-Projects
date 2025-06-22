@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "author": "ESP32 Security Device",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-esp32", "id": "esp32", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-led", "id": "led1", "top": 50, "left": 200, "attrs": { "color": "red" } },
+    { "type": "wokwi-led", "id": "led2", "top": 50, "left": 250, "attrs": { "color": "green" } },
+    { "type": "wokwi-led", "id": "led3", "top": 50, "left": 300, "attrs": { "color": "blue" } },
+    { "type": "wokwi-pushbutton", "id": "btn1", "top": 150, "left": 200, "attrs": {} },
+    { "type": "wokwi-pushbutton", "id": "btn2", "top": 150, "left": 300, "attrs": {} }
+  ],
+  "connections": [
+    [ "esp32:GPIO2", "led1:a", "green", [ "v0" ] ],
+    [ "esp32:GPIO4", "led2:a", "green", [ "v0" ] ],
+    [ "esp32:GPIO5", "led3:a", "green", [ "v0" ] ],
+    [ "esp32:GPIO12", "btn1:1.l", "green", [ "v0" ] ],
+    [ "esp32:GPIO13", "btn2:1.l", "green", [ "v0" ] ],
+    [ "btn1:2.l", "esp32:GND", "black", [ "v0" ] ],
+    [ "btn2:2.l", "esp32:GND", "black", [ "v0" ] ]
+  ]
+} 
