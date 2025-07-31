@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:docs.anthropic.com)",
+      "Bash(npm search:*)"
+    ],
+    "deny": []
+  },
+  "disabledMcpjsonServers": [
+    "filesystem",
+    "memory",
+    "sequential-thinking",
+    "puppeteer"
+  ],
+  "enabledMcpjsonServers": [
+    "ref-tools",
+    "semgrep",
+    "playwright"
+  ]
+}

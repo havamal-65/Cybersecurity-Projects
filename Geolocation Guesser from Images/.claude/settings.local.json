@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)"
+    ],
+    "deny": []
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "ref-tools",
+    "semgrep",
+    "playwright"
+  ],
+  "mcpServers": {
+    "figma-dev-mode": {
+      "url": "http://127.0.0.1:3845/sse"
+    }
+  }
+}

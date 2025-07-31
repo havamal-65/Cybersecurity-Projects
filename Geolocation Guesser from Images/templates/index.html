@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSINT Geolocation Analyzer</title>
+    
+    <!-- Leaflet CSS for OpenStreetMap -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🔍 OSINT Geolocation Analyzer</h1>
+            <p class="subtitle">Upload an image to analyze its geographic location using OSINT techniques</p>
+            <div class="security-notice">
+                <small>🔒 Secure file processing • Privacy protected • No data stored permanently</small>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Section -->
+            <section class="upload-section card">
+                <div class="upload-area" id="drop-zone">
+                    <div class="upload-icon">📁</div>
+                    <div class="upload-text">
+                        <h3>Drop image here or click to browse</h3>
+                        <p>Supported formats: JPEG, PNG, WebP (max 10MB)</p>
+                    </div>
+                    <input type="file" id="file-input" accept="image/*" hidden>
+                </div>
+                
+                <!-- Image Preview -->
+                <div id="image-preview" class="image-preview hidden">
+                    <img id="preview-img" alt="Uploaded image preview">
+                    <div class="image-info">
+                        <h4 id="image-filename"></h4>
+                        <p id="image-details"></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analysis Controls -->
+            <section class="controls-section card hidden" id="controls-section">
+                <div class="controls-header">
+                    <h3>Analysis Options</h3>
+                </div>
+                <div class="controls-grid">
+                    <label class="control-item">
+                        <input type="checkbox" id="extract-exif" checked>
+                        <span class="checkmark"></span>
+                        Extract EXIF/GPS Data
+                    </label>
+                    <label class="control-item">
+                        <input type="checkbox" id="extract-text" checked>
+                        <span class="checkmark"></span>
+                        OCR Text Analysis
+                    </label>
+                    <label class="control-item">
+                        <input type="checkbox" id="vision-analysis">
+                        <span class="checkmark"></span>
+                        AI Vision Analysis (Placeholder)
+                    </label>
+                </div>
+                <button id="analyze-btn" class="analyze-btn">
+                    🔍 Start Analysis
+                </button>
+            </section>
+
+            <!-- Progress Section -->
+            <section class="progress-section card hidden" id="progress-section">
+                <h3>Analysis in Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-steps">
+                    <div class="step" id="step-upload">✓ Image uploaded</div>
+                    <div class="step" id="step-exif">⏳ Extracting metadata...</div>
+                    <div class="step" id="step-ocr">⏳ Analyzing text...</div>
+                    <div class="step" id="step-vision">⏳ AI analysis...</div>
+                    <div class="step" id="step-scoring">⏳ Calculating confidence...</div>
+                </div>
+                <p id="progress-message">Processing your image...</p>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section card hidden" id="results-section">
+                <div class="results-header">
+                    <h3>📊 Analysis Results</h3>
+                    <div class="results-summary">
+                        <div class="confidence-display">
+                            <div class="confidence-circle">
+                                <span id="confidence-percent">0%</span>
+                            </div>
+                            <div class="confidence-label">Overall Confidence</div>
+                        </div>
+                        <div class="location-summary">
+                            <h4 id="location-name">Unknown Location</h4>
+                            <p id="coordinates">No coordinates found</p>
+                            <p id="accuracy">Accuracy: Unknown</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map Display -->
+                <div class="map-container">
+                    <h4>📍 Location Map</h4>
+                    <div id="map" class="map"></div>
+                    <div class="map-controls">
+                        <button id="center-map" class="map-btn">🎯 Center on Location</button>
+                        <button id="satellite-toggle" class="map-btn">🛰️ Toggle Satellite</button>
+                    </div>
+                </div>
+
+                <!-- Evidence Details -->
+                <div class="evidence-section">
+                    <h4>📋 Evidence Summary</h4>
+                    <div id="evidence-list" class="evidence-list">
+                        <!-- Evidence items will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Raw Data Section -->
+                <div class="raw-data-section">
+                    <h4>🔍 Technical Details</h4>
+                    <div class="data-tabs">
+                        <button class="tab-btn active" data-tab="exif">EXIF Data</button>
+                        <button class="tab-btn" data-tab="ocr">OCR Results</button>
+                        <button class="tab-btn" data-tab="api">API Responses</button>
+                    </div>
+                    <div class="tab-content">
+                        <div id="exif-data" class="tab-panel active">
+                            <pre id="exif-json">No EXIF data available</pre>
+                        </div>
+                        <div id="ocr-data" class="tab-panel">
+                            <pre id="ocr-json">No OCR data available</pre>
+                        </div>
+                        <div id="api-data" class="tab-panel">
+                            <pre id="api-json">No API data available</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Export Options -->
+                <div class="export-section">
+                    <h4>💾 Export & Reports</h4>
+                    <div class="export-buttons">
+                        <button id="export-json" class="export-btn">📄 Export JSON</button>
+                        <button id="generate-report-btn" class="export-btn">📋 Generate Report</button>
+                        <button id="download-report-btn" class="export-btn">📥 Download Markdown</button> 
+                        <button id="view-html-report-btn" class="export-btn">🌐 View HTML Report</button>
+                        <button id="reset-analysis" class="export-btn secondary">🔄 New Analysis</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Error Section -->
+            <section class="error-section card hidden" id="error-section">
+                <div class="error-content">
+                    <h3>⚠️ Analysis Error</h3>
+                    <p id="error-message">An error occurred during analysis.</p>
+                    <button id="retry-btn" class="retry-btn">🔄 Try Again</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Built for cybersecurity portfolio demonstration • Educational purposes only</p>
+            <div class="tech-stack">
+                <span>Python Flask</span> • 
+                <span>OpenStreetMap</span> • 
+                <span>Tesseract OCR</span> • 
+                <span>EXIF Analysis</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

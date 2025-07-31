@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "ref-tools": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "ref-tools-mcp"]
+    },
+    "semgrep": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "mcp-server-semgrep"]
+    },
+    "playwright": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@playwright/mcp"]
+    }
+  }
+}
