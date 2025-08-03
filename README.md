@@ -1,40 +1,31 @@
-# 🛡️ Cybersecurity Projects Portfolio
+# Cybersecurity Projects
 
-A comprehensive collection of defensive cybersecurity tools, research platforms, and security analysis projects.
+Defensive cybersecurity tools and research projects.
 
-## 🚀 Featured Projects
+## Projects
 
-### 🔐 Bright Data Cloud AI Security Researcher
-**Model Context Protocol (MCP) Server for Cybersecurity Research**
+### Geolocation Guesser from Images
+**OSINT Tool for Image-based Location Analysis**
 
-A powerful MCP server that combines Bright Data's web scraping capabilities with AI-driven security research tools.
+A comprehensive OSINT tool for analyzing images to extract location information using AI-powered vision analysis, EXIF data extraction, and advanced geolocation correlation techniques.
 
-- **5 Security Research Tools**: Threat hunting, indicator analysis, vulnerability research, feed monitoring, web security scanning
-- **Real-time Intelligence**: Live threat feeds and security news monitoring
-- **Claude Desktop Integration**: Seamless integration with Claude for AI-powered analysis
-- **Mock Data Support**: Works without API keys for testing and development
-- **TypeScript Implementation**: Clean, typed codebase with full compilation
+**Features**:
+- AI-powered image analysis using Ollama MiniCPM-V model
+- EXIF data extraction and GPS coordinate processing  
+- OCR text recognition for signs, addresses, and landmarks
+- Location intelligence correlation and geocoding
+- Interactive HTML reports with maps and analytics
+- Secure file handling with validation and rate limiting
 
-**🔧 Tech Stack**: TypeScript, Node.js, MCP Protocol, Bright Data API, Axios, Cheerio
+**Tech Stack**: Python, Flask, Ollama, Tesseract OCR, SQLAlchemy
 
-**📁 Location**: `Bright_Data_Cloud_AI_Security_Researcher/`
+**Location**: `Geolocation Guesser from Images/`
 
-**🎯 Use Cases**:
-- Threat intelligence gathering and analysis
-- Security incident response and investigation
-- Vulnerability research and management
-- Brand and competitor security monitoring
-- Academic cybersecurity research
-
----
-
-## 🛠️ Tools & Technologies
-
-- **Languages**: TypeScript, JavaScript, Python, C
-- **Security Frameworks**: MCP Protocol, Scapy, ESP-IDF
-- **Web Technologies**: Node.js, Flask, Docker
-- **Hardware**: ESP32, SDR devices, Network analysis tools
-- **Analysis Tools**: Wireshark, Network scanners, Packet analyzers
+**Use Cases**:
+- OSINT investigations and research
+- Digital forensics and incident response
+- Academic cybersecurity education
+- Authorized location analysis
 
 ## 🔒 Security & Ethics
 

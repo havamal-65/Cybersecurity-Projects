@@ -1,0 +1,21 @@
+# Placeholder project directories (keep local, don't push to remote)
+Domain Investigator/
+News Aggregator for Threat Intel/
+Social Media Profile Scraper/
+Username Tracker/
+Dark Web Mention Tracker/
+
+# Development directories (keep local until projects are ready)
+Bright_Data_Cloud_AI_Security_Researcher/
+
+# Environment files
+.env
+*.env
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
